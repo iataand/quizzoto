@@ -1,3 +1,3 @@
 export default function ViewResults() {
-  return <>Hello Ana, from ViewResults</>;
+  return <>Hello from ViewResults</>;
 }
