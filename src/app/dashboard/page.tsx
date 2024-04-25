@@ -1,3 +1,5 @@
+"use client";
+
 export default function Dashboard() {
-  return <>Hello Ana, from Dashboard</>;
+  return <>Hello from Dashboard</>;
 }

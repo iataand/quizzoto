@@ -41,8 +41,10 @@ export default function Header() {
       <div className="flex flex-col">
         {menuList.map((menuItem) => (
           <Link
+            data-testid={menuItem.url}
+            key={menuItem.url}
             href={menuItem.url}
-            className={`flex h-16 w-full items-center gap-2 p-2 pl-12 hover:bg-sky-700 ${path === menuItem.url && "bg-sky-700"}`}
+            className={`flex h-16 w-full items-center gap-2 p-2 pl-12 hover:bg-sky-700 ${path === menuItem.url ? "bg-sky-700" : ""}`}
           >
             {menuItem.icon}
             {menuItem.text}
