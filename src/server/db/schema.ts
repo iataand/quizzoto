@@ -4,6 +4,8 @@
 import { sql } from "drizzle-orm";
 import {
   index,
+  integer,
+  boolean,
   pgTableCreator,
   serial,
   timestamp,
@@ -18,17 +20,29 @@ import {
  */
 export const createTable = pgTableCreator((name) => `quizzoto_${name}`);
 
-export const posts = createTable(
-  "post",
+export const quizzes = createTable(
+  "quizzes",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    quizzName: varchar("quizzName", { length: 256 }),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt"),
   },
   (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+    nameIndex: index("name_idx").on(example.quizzName),
+  }),
 );
+
+export const questions = createTable("questions", {
+  id: serial("id").primaryKey(),
+  question: varchar("question", { length: 256 }),
+  quizzId: integer("quizz_id").references(() => quizzes.id),
+});
+
+export const answers = createTable("answers", {
+  id: serial("id").primaryKey(),
+  answer: varchar("answer", { length: 256 }),
+  isCorrect: boolean("isCorrect").default(false),
+  questionId: integer("quizz_id").references(() => questions.id),
+});
